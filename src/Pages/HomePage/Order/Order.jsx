@@ -8,6 +8,7 @@ import image2 from '../../../assets/assets/home/slide2.jpg';
 import image3 from '../../../assets/assets/home/slide3.jpg';
 import image4 from '../../../assets/assets/home/slide4.jpg';
 import image5 from '../../../assets/assets/home/slide5.jpg';
+import SectionsTitle from '../../../Component/SectionsTitle/SectionsTitle';
 
 
 
@@ -15,12 +16,10 @@ const Order = () => {
     return (
         <div className='mt-16 mb-20'>
             <div className='flex justify-center text-center'>
-                <div>
-                    <p className='text-[#D99904] font-bold'>---From 11:00am to 10:00pm---</p>
-                    <hr className='my-3 ' />
-                    <h2 className='text-4xl font-bold'>ORDER ONLINE</h2>
-                    <hr className='mt-3 mb-10' />
-                </div>
+                <SectionsTitle
+                    subHeading={"From 11:00am to 10:00pm"}
+                    heading={"ORDER ONLINE"}
+                ></SectionsTitle>
             </div>
 
             <div className='container mx-auto px-5'>
