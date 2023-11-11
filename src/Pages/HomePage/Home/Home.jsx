@@ -1,8 +1,11 @@
 import Banner from "../Banner/Banner";
 import CallUs from "../CallUs/CallUs";
 import Feature from "../Feature/Feature";
+import FeatureMenu from "../FeatureMenu/FeatureMenu";
 import Menu from "../Menu/Menu";
 import Order from "../Order/Order";
+import Recommends from "../Recommends/Recommends";
+import Testimonials from "../Testimonials/Testimonials";
 
 const Home = () => {
     return (
@@ -12,6 +15,9 @@ const Home = () => {
             <Feature></Feature>
             <Menu></Menu>
             <CallUs></CallUs>
+            <Recommends></Recommends>
+            <FeatureMenu></FeatureMenu>
+            <Testimonials></Testimonials>
         </div>
     );
 };
