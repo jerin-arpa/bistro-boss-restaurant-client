@@ -3,6 +3,7 @@ import Root from "../Root/Root";
 import Home from "../Pages/HomePage/Home/Home";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
+import OurMenu from "../Pages/OurMenu/OurMenu";
 
 
 const router = createBrowserRouter([
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/ourMenu",
-                element: <Home></Home>,
+                element: <OurMenu></OurMenu>,
             },
             {
                 path: "/ourShop",

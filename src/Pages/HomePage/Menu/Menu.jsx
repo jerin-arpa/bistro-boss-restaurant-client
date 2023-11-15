@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
 import SectionsTitle from "../../../Component/SectionsTitle/SectionsTitle";
 import MenuItemCard from "../../../Component/MenuItemCard/MenuItemCard";
 import { AwesomeButton } from 'react-awesome-button';
 import 'react-awesome-button/dist/styles.css';
+import useMenu from "../../../hooks/UseMenu";
 
 
 const Menu = () => {
 
-    const [menu, setMenu] = useState([]);
+    const [menu] = useMenu();
+    const popular = menu.filter(item => item.category === 'popular');
+    // const [menu, setMenu] = useState([]);
 
-    useEffect(() => {
-        fetch('menu.json')
-            .then(res => res.json())
-            .then(data => {
-                const popularItems = data.filter(item => item.category === 'popular');
-                setMenu(popularItems);
-            })
-    }, []);
+    // useEffect(() => {
+    //     fetch('menu.json')
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             const popularItems = data.filter(item => item.category === 'popular');
+    //             setMenu(popularItems);
+    //         })
+    // }, []);
 
     return (
         <div className="container mx-auto px-5 mb-20">
@@ -30,7 +32,7 @@ const Menu = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 {
-                    menu.map(item => <MenuItemCard
+                    popular.map(item => <MenuItemCard
                         key={item._id}
                         item={item}
                     ></MenuItemCard>)
