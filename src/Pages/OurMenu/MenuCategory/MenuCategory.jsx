@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import MenuItemCard from '../../../Component/MenuItemCard/MenuItemCard';
+import { Link } from 'react-router-dom';
 
 const MenuCategory = ({ items }) => {
     return (
@@ -14,9 +15,11 @@ const MenuCategory = ({ items }) => {
             </div>
 
             <div className='mt-14 flex justify-center'>
-                <button className='btn bg-transparent border-0 border-b-8 border-[#BB8506] text-bold text-2xl'>
-                    ORDER YOUR FAVOURITE FOOD
-                </button>
+                <Link to='/ourShop'>
+                    <button className='btn bg-transparent border-0 border-b-8 border-[#BB8506] text-bold bg-gray-50'>
+                        ORDER YOUR FAVOURITE FOOD
+                    </button>
+                </Link>
             </div>
         </div>
     );
