@@ -12,18 +12,6 @@ const Navbar = () => {
                 }>Home</NavLink>
         </li>
         <li>
-            <NavLink to="/contact"
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
-                }>Contact Us</NavLink>
-        </li>
-        <li>
-            <NavLink to="/dashboard"
-                className={({ isActive, isPending }) =>
-                    isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
-                }>Dashboard</NavLink>
-        </li>
-        <li>
             <NavLink to="/ourMenu"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
@@ -34,6 +22,12 @@ const Navbar = () => {
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
                 }>Our Shop</NavLink>
+        </li>
+        <li>
+            <NavLink to="/contact"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
+                }>Contact Us</NavLink>
         </li>
     </>
 

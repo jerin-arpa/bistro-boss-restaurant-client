@@ -6,11 +6,20 @@ import { useState } from 'react';
 import useMenu from '../../hooks/UseMenu';
 import OrderTab from './OrderTab/OrderTab';
 import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 
 
 const OurShop = () => {
-    const [tabIndex, setTabIndex] = useState(0);
+    const categories = ['salad', 'pizza', 'soup', 'dessert', 'drinks'];
+
+    const { category } = useParams();
+    console.log(category);
+
+    const initialIndex = categories.indexOf(category);
+
+    const [tabIndex, setTabIndex] = useState(initialIndex);
     const [menu] = useMenu();
+
     const dessert = menu.filter(item => item.category === 'dessert');
     const soup = menu.filter(item => item.category === 'soup');
     const salad = menu.filter(item => item.category === 'salad');
