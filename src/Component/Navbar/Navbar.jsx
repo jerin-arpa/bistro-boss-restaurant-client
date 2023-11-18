@@ -1,8 +1,17 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from '../../assets/assets/logo/logo.png';
-import cart from '../../assets/assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png';
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Navbar = () => {
+
+    const { user, logout } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logout()
+            .then(() => { })
+            .catch(error => console.log(error));
+    }
 
     const navLink = <>
         <li>
@@ -18,7 +27,7 @@ const Navbar = () => {
                 }>Our Menu</NavLink>
         </li>
         <li>
-            <NavLink to="/ourShop"
+            <NavLink to="/ourShop/salad"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
                 }>Our Shop</NavLink>
@@ -33,7 +42,7 @@ const Navbar = () => {
 
     return (
         <div className="flex justify-center">
-            <div className="navbar bg-black text-white opacity-70 fixed z-10">
+            <div className="navbar bg-black text-white opacity-80 fixed z-10">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -61,14 +70,18 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
+                    <img className="w-8 rounded-full" src={user?.photoURL} alt="" />
+                    <h2 className="px-3">{user?.displayName}</h2>
                     <div>
-                        <img className="w-14 mr-3" src={cart} alt="" />
-                    </div>
-
-                    <div>
-                        <Link to='/login'>
-                            <button className="btn btn-warning text-white font-bold">Login</button>
-                        </Link>
+                        {
+                            user ? <>
+                                <button onClick={handleLogout} className="btn bg-[#D1A054] border-0 font-bold">Log out</button>
+                            </> : <>
+                                <Link to='/login'>
+                                    <button className="btn bg-[#D1A054] border-0 font-bold">Login</button>
+                                </Link>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
