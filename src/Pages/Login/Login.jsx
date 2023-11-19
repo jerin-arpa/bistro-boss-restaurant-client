@@ -14,14 +14,17 @@ import Swal from "sweetalert2";
 const Login = () => {
     const { signIn, googleSignUp } = useContext(AuthContext);
 
-    const location = useLocation();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [loginError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [disable, setDisable] = useState(true);
 
+    // TODO
     const from = location.state?.from?.pathname || "/";
+    console.log('state in the login page', location.state)
+
 
     useEffect(() => {
         loadCaptchaEnginge(6);

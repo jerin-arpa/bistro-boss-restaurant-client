@@ -2,10 +2,14 @@ import { Link, NavLink } from "react-router-dom";
 import logo from '../../assets/assets/logo/logo.png';
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
+import { FaCartPlus } from "react-icons/fa";
+import UseCart from "../../hooks/UseCart";
+
 
 const Navbar = () => {
 
     const { user, logout } = useContext(AuthContext);
+    const [cart] = UseCart();
 
     const handleLogout = () => {
         logout()
@@ -38,7 +42,20 @@ const Navbar = () => {
                     isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
                 }>Contact Us</NavLink>
         </li>
+        <li>
+            <NavLink to="/"
+                className={({ isActive, isPending }) =>
+                    isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
+                }>
+                <button className="flex gap-1">
+                    <FaCartPlus className="text-3xl"></FaCartPlus>
+                    <div className="badge badge-warning text-xl">+{cart.length}</div>
+                </button>
+            </NavLink>
+        </li>
     </>
+
+
 
     return (
         <div className="flex justify-center">
@@ -64,13 +81,15 @@ const Navbar = () => {
                         </div>
                     </div>
                 </div>
+
                 <div className="navbar-center hidden lg:flex">
                     <ul className="flex gap-5 font-bold px-1">
                         {navLink}
                     </ul>
                 </div>
+
                 <div className="navbar-end">
-                    <img className="w-8 rounded-full" src={user?.photoURL} alt="" />
+                    <img className="w-8 h-8 rounded-full" src={user?.photoURL} alt="" />
                     <h2 className="px-3">{user?.displayName}</h2>
                     <div>
                         {
