@@ -43,7 +43,7 @@ const Navbar = () => {
                 }>Contact Us</NavLink>
         </li>
         <li>
-            <NavLink to="/"
+            <NavLink to="/dashboard/cart"
                 className={({ isActive, isPending }) =>
                     isPending ? "pending" : isActive ? "text-[#EEFF25] underline font-bold" : ""
                 }>
