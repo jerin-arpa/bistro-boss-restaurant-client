@@ -1,17 +1,20 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import bg1 from '../../assets/assets/others/authentication.png';
 import image from '../../assets/assets/others/authentication2.png';
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
+import UseAxiosPublic from "../../hooks/UseAxiosPublic";
+import SocialLogin from "../../Component/SocialLogin/SocialLogin";
 
 
 
 const SignUp = () => {
-    const { createUser, logOut, googleSignUp, updateUserprofile } = useContext(AuthContext);
+    const axiosPublic = UseAxiosPublic();
+
+    const { createUser, updateUserprofile } = useContext(AuthContext);
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -20,7 +23,7 @@ const SignUp = () => {
     const [showPassword, setShowPassword] = useState(false);
 
 
-    const handleLogin = event => {
+    const handleSignUp = event => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
@@ -36,19 +39,26 @@ const SignUp = () => {
                 updateUserprofile(name, photo)
                     .then(() => {
                         console.log('User Profile Info Updated')
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Account Created Successfully',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        logOut()
-                            .then(result => {
-                                console.log(result.user)
+
+                        // Create user entry in the database
+                        const userInfo = {
+                            name: name,
+                            email: email,
+                        }
+                        axiosPublic.post('/users', userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log('User added to the database')
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Account Created Successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/login');
+                                }
                             })
-                            .catch(() => { })
-                        navigate('/login');
                     })
                     .catch(error => console.log(error))
             })
@@ -63,18 +73,6 @@ const SignUp = () => {
             })
     }
 
-
-    const handleGoogleSignUp = () => {
-        googleSignUp()
-            .then(result => {
-                console.log(result.user);
-                navigate(location?.state ? location.state : '/');
-            })
-            .catch(error => {
-                console.error(error);
-            })
-
-    }
 
 
     return (
@@ -96,7 +94,7 @@ const SignUp = () => {
 
                             <div className="flex justify-center flex-1">
                                 <div className="w-full p-8">
-                                    <form onSubmit={handleLogin} className="px-4 md:px-14">
+                                    <form onSubmit={handleSignUp} className="px-4 md:px-14">
                                         <div className="form-control">
                                             <label className="label">
                                                 <span className="label-text">Name</span>
@@ -145,10 +143,7 @@ const SignUp = () => {
                                         </div>
 
                                         <div>
-                                            <button onClick={handleGoogleSignUp} className="btn bg-transparent border-[#D1A054] mt-5 mb-4 w-full">
-                                                <FcGoogle className='text-xs md:text-xl'></FcGoogle>
-                                                <span className="text-xs md:text-md">Continue with Google</span>
-                                            </button>
+                                            <SocialLogin></SocialLogin>
                                         </div>
                                     </form>
 

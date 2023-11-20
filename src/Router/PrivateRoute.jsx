@@ -9,8 +9,11 @@ const PrivateRoute = ({ children }) => {
     const location = useLocation();
 
     if (loading) {
-        <span className="loading loading-spinner text-warning"></span>
+        return <div className=" bg-slate-900">
+            <div className="container mx-auto px-5 flex justify-center py-20"><span className="loading loading-infinity loading-lg"></span></div>
+        </div>;
     }
+
 
     if (user) {
         return children;

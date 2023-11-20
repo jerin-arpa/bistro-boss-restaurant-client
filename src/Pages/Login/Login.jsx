@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FcGoogle } from 'react-icons/fc';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import bg1 from '../../assets/assets/others/authentication.png';
 import image from '../../assets/assets/others/authentication2.png';
@@ -8,11 +7,12 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 import { AuthContext } from "../../provider/AuthProvider";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../Component/SocialLogin/SocialLogin";
 
 
 
 const Login = () => {
-    const { signIn, googleSignUp } = useContext(AuthContext);
+    const { signIn } = useContext(AuthContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -41,25 +41,18 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 console.log(result.user);
-
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'User Login Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 navigate(from, { replace: true });
             })
             .catch(error => {
                 console.error(error);
             })
-    }
-
-
-    const handleGoogleSignUp = () => {
-        googleSignUp()
-            .then(result => {
-                console.log(result.user);
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                console.error(error);
-            })
-
     }
 
 
@@ -155,10 +148,7 @@ const Login = () => {
                                         </div>
 
                                         <div>
-                                            <button onClick={handleGoogleSignUp} className="btn bg-transparent border-[#D1A054] mt-5 mb-4 w-full">
-                                                <FcGoogle className='text-xs md:text-xl'></FcGoogle>
-                                                <span className="text-xs md:text-md">Continue with Google</span>
-                                            </button>
+                                            <SocialLogin></SocialLogin>
                                         </div>
                                     </form>
 
