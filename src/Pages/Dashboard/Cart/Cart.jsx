@@ -6,6 +6,7 @@ import SectionsTitle from "../../../Component/SectionsTitle/SectionsTitle";
 import { Link } from "react-router-dom";
 
 const Cart = () => {
+
     const [cart, refetch] = UseCart();
     const totalPrice = cart.reduce((total, item) => total + item.price, 0);
     const axiosSecure = UseAxiosSecure();
@@ -37,6 +38,7 @@ const Cart = () => {
             }
         });
     }
+
 
 
     return (
