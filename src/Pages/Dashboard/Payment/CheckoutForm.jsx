@@ -20,6 +20,7 @@ const CheckoutForm = () => {
 
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
 
+
     useEffect(() => {
         if (totalPrice > 0) {
             axiosSecure.post('/create-payment-intent', { price: totalPrice })
@@ -30,6 +31,8 @@ const CheckoutForm = () => {
         }
 
     }, [axiosSecure, totalPrice])
+
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -58,6 +61,8 @@ const CheckoutForm = () => {
             setError('');
         }
 
+
+
         // confirm payment
         const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -68,6 +73,7 @@ const CheckoutForm = () => {
                 }
             }
         })
+
 
         if (confirmError) {
             console.log('confirm error')
@@ -107,6 +113,8 @@ const CheckoutForm = () => {
         }
 
     }
+
+
 
     return (
         <form onSubmit={handleSubmit}>
