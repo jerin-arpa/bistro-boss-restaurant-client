@@ -1,2 +1,2 @@
-# Bistro Boss Restaurent
+# Bistro Boss Restaurent (client side)
 
