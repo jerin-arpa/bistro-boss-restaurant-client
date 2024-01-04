@@ -1,10 +1,10 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import useCart from "../../../hooks/useCart";
-import useAuth from "../../../hooks/useAuth";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
+import UseCart from "../../../hooks/UseCart";
+import { AuthContext } from "../../../provider/AuthProvider";
 
 
 const CheckoutForm = () => {
@@ -13,9 +13,9 @@ const CheckoutForm = () => {
     const [transactionId, setTransactionId] = useState('');
     const stripe = useStripe();
     const elements = useElements();
-    const axiosSecure = useAxiosSecure();
-    const { user } = useAuth();
-    const [cart, refetch] = useCart();
+    const axiosSecure = UseAxiosSecure();
+    const { user } = useContext(AuthContext);
+    const [cart, refetch] = UseCart();
     const navigate = useNavigate();
 
     const totalPrice = cart.reduce((total, item) => total + item.price, 0)
